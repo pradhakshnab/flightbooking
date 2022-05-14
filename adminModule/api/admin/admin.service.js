@@ -54,6 +54,10 @@ module.exports = {
     },
 
     search: (data,callback) => {
+        const result =  pool.request()
+            .input('Name', req.query.name)
+            .execute(`SearchEmployee`);
+        const employees = result.recordset;
         pool.query(
             `exec flight_search @Date =  ? , @Origin= ? , @Destination = ? , @TripType = ?, @ReturnDate =?`,
             [
